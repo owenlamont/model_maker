@@ -1,0 +1,134 @@
+[project]
+name = "model_maker"
+version = "0.1.0"
+description = "Convert images to 3D printable height fields"
+readme = "README.md"
+authors = [
+    { name = "Owen Lamont", email = "owenrlamont@gmail.com" }
+]
+requires-python = ">=3.13"
+dependencies = [
+    "torch",
+    "torchvision",
+    "torchaudio",
+    "matplotlib>=3.10.1",
+    "pillow>=11.1.0",
+    "jupyterlab>=4.3.5",
+    "notebook>=7.3.3",
+    "ipywidgets>=8.1.5",
+    "trimesh[easy,recommend]>=4.6.4",
+    "transformers>=4.49.0",
+]
+
+[tool.uv.sources]
+torch = { index = "pytorch" }
+torchvision = { index = "pytorch" }
+torchaudio = { index = "pytorch" }
+
+[project.scripts]
+model-printer = "model_printer:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.ruff]
+
+line-length = 88
+indent-width = 4
+target-version = "py39"
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+skip-magic-trailing-comma = true
+line-ending = "lf"
+
+[tool.ruff.lint]
+# See https://docs.astral.sh/ruff/rules/
+select = [
+    "A",
+    "ASYNC",
+    "B",
+    "C4",
+    "D",
+    "DOC",
+    "E",
+    "F",
+    "FURB",
+    "I",
+    "ISC",
+    "N",
+    "NPY",
+    "PD",
+    "PERF",
+    "PT",
+    "PTH",
+    "Q",
+    "S",
+    "RET",
+    "RUF",
+    "SIM",
+    "UP"
+]
+ignore = [
+    "D100", # Missing docstring in public module
+    "D101", # Missing docstring in public class
+    "D104", # Missing docstring in public package
+    "D105", # Missing docstring in magic method
+    "D106", # Missing docstring in public nested class
+    "D107", # Missing docstring in __init__
+    "D202", # No blank lines allowed after function docstring
+    "D213", # Multi-line docstring summary should start at the second line
+    "D214", # Section is over-indented
+    "D215", # Section underline is over-indented
+    "D400", # First line should end with a period
+    "D401", # First line of docstring should be in imperative mood
+    "D415", # First line should end with a period, question mark, or exclamation
+    "D416", # Section name should end with a colon
+    "D417", # Missing argument descriptions in the docstring
+    "D418", # Function/ Method decorated with @overload shouldn't contain a docstring
+    "E203", # Whitespace before ':' (fights ruff format)
+    "ISC001", # Implicitly concatenated string literals on one line
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/**" = ["D102", "D103", "S101"]
+
+# Allow fix for all enabled rules (when `--fix`) is provided.
+fixable = ["ALL"]
+unfixable = [
+    "B905", # Enforce strict argument on zip - but don't autofix as strict=False
+]
+
+[tool.ruff.lint.flake8-pytest-style]
+mark-parentheses = false
+
+[tool.ruff.lint.isort]
+case-sensitive = false
+combine-as-imports = true
+force-sort-within-sections = true
+lines-after-imports = 2
+order-by-type = false
+section-order = [
+    "future",
+    "standard-library",
+    "third-party",
+    "first-party",
+    "local-folder"
+]
+split-on-trailing-comma=false
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.typos]
+
+[tool.typos.default.extend-words]
+arange = "arange"
+nd = "nd"
+
+[[tool.uv.index]]
+name = "pytorch"
+url = "https://download.pytorch.org/whl/cu126"
+explicit = true
